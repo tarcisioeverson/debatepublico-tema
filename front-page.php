@@ -1,88 +1,58 @@
 <?php get_header(); ?>
 
-<?php
-	//Desafio 2 do Edital
-	//Se houver imagem na biblioteca de mídia com o nome 'bg_banner.jpg', faz a substituição da imagem de background do banner.
-	//Basta realizar o upload de uma imagem com esse nome na biblioteca de mídia do painel administrativo.	
-	if (file_exists( ABSPATH . 'wp-content/themes/debatepublico-novo/images/anti-corrupcao/bg_banner.jpg' ) ) {
-		echo '<div style="background-image:url(wp-content/themes/debatepublico-novo/images/anti-corrupcao/bg_banner.jpg); padding:0; margin:0;>';
+  <?php 
+   	// Desafio 3, proposta de melhoria
+	// Proposta de edição do banner através de um widget
+	// No Painel de administração do Site, deve ser colocado um widget de texto na área de Banner.
+	// O HTML desejado deve ser colocado dentro do widget do tipo Texto.
+	// Se houver o widget criado, ele é carregado
+	if ( is_active_sidebar( 'widget-banner' ) ) {
+    	dynamic_sidebar( 'widget-banner' );
 	} else {
-		//Se não houver imagem com esse nome, o banner normal é carregado
-		echo '<div id="anti-corr">';
-	 } ?>
-    <div class="anti-corr-top">
-        <div class="container">
-            <div class="row pb-lg">
-                <div class="col-md-offset-1 col-sm-4 text-center mt-md">
-                
-                	<?php
-						//Desafio 3 do edital
-						//Melhoria para carregar os textos e imagens do banner através do painel administrativo
-						//Banner do site que vem através de um post de nome 'banner'
-						//Após criar um post com o nome 'banner' o conteúdo do post é mostrado no banner
-						if ( 'banner' === $post->post_title ) {
-							$separador = '</strong>';
-							$conteudo = $post->post_content;
-							$partes = explode($separador, $conteudo);
-							//Se no post for carregada uma nova 'imagem destacada' será mostrada no banner
-                   			$id_imagem = get_post_thumbnail_id();
-							$url_imagem = wp_get_attachment_image_src($id_imagem,'thumbnail-size', true);
-               
-					echo '<img src="' . $url_imagem[0] . '" class="img-adptive mt-lg" alt="Logotipo do tema do debate">';
-					?>
-                    
-                </div>
-                <div class="col-md-offset-1 col-sm-6 col-md-4 white mt-md">
-                    <h1 class="font-roboto h1 mt-lg"><strong><?php echo $partes[0]; ?></strong></h1>
-                    <?php
-                    	echo '<p class="banner-conteudo">'; 
-						echo $partes[1];
-						echo '</p>';
-					} else { ?>
-						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/logo-anti-corrupcao-v02.png" class="img-adptive mt-lg" alt="Logo: Medidas de combate à corrupção e a impunidade ">
-                        </div>
-                	<div class="col-md-offset-1 col-sm-6 col-md-4 white mt-md">
-                    <h1 class="font-roboto h1 mt-lg"><strong>Crie um post banner!</strong></h1>
-                     <p class="mt-md">Criando um novo post com o título: banner, você poderá realizar toda a costumização diretamente no painel administrativo sem a necessidade de alterar o tema.</p>
-					<?php 
-					}
-                    ?>
-                </div>
-            </div>
+  ?>
+<div id="anti-corr">
+  <div class="anti-corr-top">
+    <div class="container">
+      <div class="row pb-lg">
+        <div class="col-md-offset-1 col-sm-4 text-center mt-md"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/logo-anti-corrupcao-v02.png" class="img-adptive mt-lg" alt="Logo: Medidas de combate à corrupção e a impunidade "> </div>
+        <div class="col-md-offset-1 col-sm-6 col-md-4 white mt-md">
+          <h1 class="font-roboto h1 mt-lg"><strong>Participe, opine, ajude!</strong></h1>
+          <p class="mt-md">Esta consulta pública visa a proporcionar a mais ampla participação da sociedade na construção de ideias e soluções para temas essenciais a este enfrentamento: a eficiência e a eficácia de processos judiciais e administrativos. Opine. Participe.</p>
         </div>
+      </div>
     </div>
-    <div class="anti-corr-oque">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-offset-1">
-                    <h2 class="font-roboto red h1">O que é?</h2>
-                    <p class="mt-md">O enfrentamento da corrupção depende da ação integrada e articulada de todos os órgãos estatais, abarcando os três poderes de todas as esferas da Federação, e do envolvimento da sociedade civil, fundamental para a erradicação deste problema.</p>
-                    <p class="mt-sm"><a href="<?php echo site_url("/pauta/"); ?>" class="btn btn-danger font-roboto"><strong>PARTICIPE</strong></a></p>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/img-anti-corrupcao-007.png" class="img-adptive line-5" alt="Logo: Medidas de combate à corrupção e a impunidade ">
-                </div>
-            </div>
+  </div>
+  <?php } ?>
+  <div class="anti-corr-oque">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-offset-1">
+          <h2 class="font-roboto red h1">O que é?</h2>
+          <p class="mt-md">O enfrentamento da corrupção depende da ação integrada e articulada de todos os órgãos estatais, abarcando os três poderes de todas as esferas da Federação, e do envolvimento da sociedade civil, fundamental para a erradicação deste problema.</p>
+          <p class="mt-sm"><a href="<?php echo site_url("/pauta/"); ?>" class="btn btn-danger font-roboto"><strong>PARTICIPE</strong></a></p>
         </div>
+        <div class="col-sm-4 text-center"> <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/img-anti-corrupcao-007.png" class="img-adptive line-5" alt="Logo: Medidas de combate à corrupção e a impunidade "> </div>
+      </div>
     </div>
-    <div class="anti-corr-eixos">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2 class="font-roboto red">Eixos em debate</h2>
-                </div>
-                <div class="col-sm-6 text-right">
-                    <p class="mt-sm"><strong><a href="<?php echo site_url("/pauta/"); ?>">Confira todas as pautas</a></strong></p>
-                </div>
-            </div>
+  </div>
+  <div class="anti-corr-eixos">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2 class="font-roboto red">Eixos em debate</h2>
         </div>
-        <div class="tabs-main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!-- tabs left -->
-                        <div class="tabs-left">
-                            <?php
+        <div class="col-sm-6 text-right">
+          <p class="mt-sm"><strong><a href="<?php echo site_url("/pauta/"); ?>">Confira todas as pautas</a></strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="tabs-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12"> 
+            <!-- tabs left -->
+            <div class="tabs-left">
+              <?php
                                 $eixos = get_terms('tema', array(
                                         'hide_empty' => 0,
                                         'orderby' => 'name',
@@ -105,8 +75,8 @@
                                     echo '</ul>';
                                 }
                                 ?>
-                                <div class="tab-content">
-                                <?php
+              <div class="tab-content">
+                <?php
                                     if (!empty($eixos) && !is_wp_error($eixos)) {
                                         $first = true;
                                         //Inserindo eixos (temas)
@@ -347,57 +317,57 @@
                                         }
                                     }
                                     ?>
-                                </div>
-                            </div>
-                            <!-- /tabs left -->
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <!-- /tabs left --> 
+          </div>
         </div>
-        <div class="ficha-tecnica">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h2 class="font-roboto red">Fique por dentro do debate</h2>
-                    </div>
-                </div>
-                <div class="row mt-md">
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">Ficha técnica</div>
-                                    <?php $options = get_option( 'participacao_settings' ); ?>
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <p><small><i class="fa fa-calendar divider-right"></i> Data de abertura:</small></p>
-                                            <p class="h4"><strong><?php echo @$options['participacao_data_abertura']; ?></strong></p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p><small><i class="fa fa-list-ol divider-right"></i> Fase do debate:</small></p>
-                                            <p class="h4"><strong><?php echo @$options['participacao_fase_debate']; ?></strong></p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p><small><i class="fa fa-calendar divider-right"></i> Data de encerramento:</small></p>
-                                            <p class="h4"><strong><?php echo @$options['participacao_data_encerramento']; ?></strong></p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p><small><i class="fa fa-gavel divider-right"></i> Normas em discussão:</small></p>
-                                            <p class="h5"><strong><?php echo @$options['participacao_normas']; ?></strong></p>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <p><small><i class="fa fa-list-ol divider-right"></i> Contato:</small></p>
-                                            <p><strong><a href="mailto:<?php echo bloginfo('admin_email') ?>"><?php echo bloginfo('admin_email') ?></a></strong></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <?php
+      </div>
+    </div>
+  </div>
+  <div class="ficha-tecnica">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="font-roboto red">Fique por dentro do debate</h2>
+        </div>
+      </div>
+      <div class="row mt-md">
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">Ficha técnica</div>
+                <?php $options = get_option( 'participacao_settings' ); ?>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <p><small><i class="fa fa-calendar divider-right"></i> Data de abertura:</small></p>
+                    <p class="h4"><strong><?php echo @$options['participacao_data_abertura']; ?></strong></p>
+                  </li>
+                  <li class="list-group-item">
+                    <p><small><i class="fa fa-list-ol divider-right"></i> Fase do debate:</small></p>
+                    <p class="h4"><strong><?php echo @$options['participacao_fase_debate']; ?></strong></p>
+                  </li>
+                  <li class="list-group-item">
+                    <p><small><i class="fa fa-calendar divider-right"></i> Data de encerramento:</small></p>
+                    <p class="h4"><strong><?php echo @$options['participacao_data_encerramento']; ?></strong></p>
+                  </li>
+                  <li class="list-group-item">
+                    <p><small><i class="fa fa-gavel divider-right"></i> Normas em discussão:</small></p>
+                    <p class="h5"><strong><?php echo @$options['participacao_normas']; ?></strong></p>
+                  </li>
+                  <li class="list-group-item">
+                    <p><small><i class="fa fa-list-ol divider-right"></i> Contato:</small></p>
+                    <p><strong><a href="mailto:<?php echo bloginfo('admin_email') ?>"><?php echo bloginfo('admin_email') ?></a></strong></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <?php
                                 $paginas = get_pages((array( 'sort_column' => 'menu_order', 'number' => 3 )));
                                 foreach ($paginas as $pagina) {
                                     echo '<div class="col-sm-4">';
@@ -411,35 +381,33 @@
                                     echo '</div></div></div>';
                                 }
                             ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
+</div>
 </div>
 <?php get_template_part('mini-tutorial'); ?>
 <div class="container">
-	<div class="row text-center pt-md mb-md">
-		<h4 class="red font-roboto"> <strong>Realização</strong></h4>
-	</div>
-	<div class="row text-center">
-		<div class="col-sm-5 col-md-offset-1">
-			<p>Secretaria Nacional de Justiça/MJ</p>
-			<p>Secretaria de Assuntos Legislativos/MJ</p>
-			<p>Controladoria-Geral da União</p>
-		</div>
-		<div class="col-sm-5 divider-left">
-			<p>Conselho Federal da Ordem dos Advogados do Brasil</p>
-			<p>Conselho Nacional de Justiça</p>
-			<p>Advocacia-Geral da União</p>
-			<p>Conselho Nacional do Ministério Público</p>
-		</div>
-	</div>
+  <div class="row text-center pt-md mb-md">
+    <h4 class="red font-roboto"> <strong>Realização</strong></h4>
+  </div>
+  <div class="row text-center">
+    <div class="col-sm-5 col-md-offset-1">
+      <p>Secretaria Nacional de Justiça/MJ</p>
+      <p>Secretaria de Assuntos Legislativos/MJ</p>
+      <p>Controladoria-Geral da União</p>
+    </div>
+    <div class="col-sm-5 divider-left">
+      <p>Conselho Federal da Ordem dos Advogados do Brasil</p>
+      <p>Conselho Nacional de Justiça</p>
+      <p>Advocacia-Geral da União</p>
+      <p>Conselho Nacional do Ministério Público</p>
+    </div>
+  </div>
 </div>
-<div class="back-to-top">
-    <a href="#" class="white"><i class="fa fa-level-up"></i> Voltar para o topo</a>
-</div>
+<div class="back-to-top"> <a href="#" class="white"><i class="fa fa-level-up"></i> Voltar para o topo</a> </div>
 <?php get_footer(); ?>
