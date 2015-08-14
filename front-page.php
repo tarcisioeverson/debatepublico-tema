@@ -1,14 +1,52 @@
 <?php get_header(); ?>
-<div id="anti-corr">
+
+<?php
+	//Desafio 2 do Edital
+	//Se houver imagem na biblioteca de mídia com o nome 'bg_banner.jpg', faz a substituição da imagem de background do banner.
+	//Basta realizar o upload de uma imagem com esse nome na biblioteca de mídia do painel administrativo.	
+	if (file_exists( ABSPATH . 'wp-content/themes/debatepublico-novo/images/anti-corrupcao/bg_banner.jpg' ) ) {
+		echo '<div style="background-image:url(wp-content/themes/debatepublico-novo/images/anti-corrupcao/bg_banner.jpg); padding:0; margin:0;>';
+	} else {
+		//Se não houver imagem com esse nome, o banner normal é carregado
+		echo '<div id="anti-corr">';
+	 } ?>
     <div class="anti-corr-top">
         <div class="container">
             <div class="row pb-lg">
                 <div class="col-md-offset-1 col-sm-4 text-center mt-md">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/logo-anti-corrupcao-v02.png" class="img-adptive mt-lg" alt="Logo: Medidas de combate à corrupção e a impunidade ">
+                
+                	<?php
+						//Desafio 3 do edital
+						//Melhoria para carregar os textos e imagens do banner através do painel administrativo
+						//Banner do site que vem através de um post de nome 'banner'
+						//Após criar um post com o nome 'banner' o conteúdo do post é mostrado no banner
+						if ( 'banner' === $post->post_title ) {
+							$separador = '</strong>';
+							$conteudo = $post->post_content;
+							$partes = explode($separador, $conteudo);
+							//Se no post for carregada uma nova 'imagem destacada' será mostrada no banner
+                   			$id_imagem = get_post_thumbnail_id();
+							$url_imagem = wp_get_attachment_image_src($id_imagem,'thumbnail-size', true);
+               
+					echo '<img src="' . $url_imagem[0] . '" class="img-adptive mt-lg" alt="Logotipo do tema do debate">';
+					?>
+                    
                 </div>
                 <div class="col-md-offset-1 col-sm-6 col-md-4 white mt-md">
-                    <h1 class="font-roboto h1 mt-lg"><strong>Participe, opine, ajude!</strong></h1>
-                    <p class="mt-md">Esta consulta pública visa a proporcionar a mais ampla participação da sociedade na construção de ideias e soluções para temas essenciais a este enfrentamento: a eficiência e a eficácia de processos judiciais e administrativos. Opine. Participe.</p>
+                    <h1 class="font-roboto h1 mt-lg"><strong><?php echo $partes[0]; ?></strong></h1>
+                    <?php
+                    	echo '<p class="banner-conteudo">'; 
+						echo $partes[1];
+						echo '</p>';
+					} else { ?>
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/anti-corrupcao/logo-anti-corrupcao-v02.png" class="img-adptive mt-lg" alt="Logo: Medidas de combate à corrupção e a impunidade ">
+                        </div>
+                	<div class="col-md-offset-1 col-sm-6 col-md-4 white mt-md">
+                    <h1 class="font-roboto h1 mt-lg"><strong>Crie um post banner!</strong></h1>
+                     <p class="mt-md">Criando um novo post com o título: banner, você poderá realizar toda a costumização diretamente no painel administrativo sem a necessidade de alterar o tema.</p>
+					<?php 
+					}
+                    ?>
                 </div>
             </div>
         </div>
